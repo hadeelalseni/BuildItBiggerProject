@@ -7,7 +7,9 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Toast;
 
+import hadeel.com.androidlib.MyJokeActivity;
 import hadeel.com.javalib.MyJavaJoke;
+import android.content.Intent;
 
 
 public class MainActivity extends AppCompatActivity {
@@ -42,8 +44,14 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void tellJoke(View view) {
-        MyJavaJoke joke = new MyJavaJoke();
-        Toast.makeText(this, joke.getJoke(), Toast.LENGTH_SHORT).show();
+        MyJavaJoke myJavaJoke = new MyJavaJoke();
+        String joke = myJavaJoke.getJoke();
+        Toast.makeText(this, joke, Toast.LENGTH_SHORT).show();
+
+        Intent intent = new Intent(this, MyJokeActivity.class);
+        intent.putExtra("joke", joke);
+        this.startActivity(intent);
+
     }
 
 
