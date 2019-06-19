@@ -31,11 +31,34 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
-    sourceSets { main { java.srcDirs = ['src/main/java', 'src/main/java/test'] } }
+    sourceSets {
+        main { java.srcDirs = ['src/main/java', 'src/main/java/test'] } 
+        paid {java.srcDirs = ['src/paid/java', 'src/paid/java/'] }
+    }
+
+    flavorDimensions "default"
+    productFlavors {
+        free {
+            // Assigns this product flavor to the "version" flavor dimension.
+            // This property is optional if you are using only one dimension.
+            //dimension "version"
+            //applicationIdSuffix ".free"
+            //versionNameSuffix "-free"
+            buildConfigField "boolean", "PAID_VERSION", "false"
+        }
+        paid {
+            //dimension "version"
+            //applicationIdSuffix ".paid"
+            //versionNameSuffix "-paid"
+            buildConfigField "boolean", "PAID_VERSION", "true"
+        }
+    }
+
 }
 
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
+    implementation 'com.android.support:support-v4:26.1.0'
     endpointsServer project(path: ':backend', configuration: 'endpoints')
     implementation 'com.android.support:appcompat-v7:26.1.0'
     implementation 'com.google.android.gms:play-services-ads:11.8.0'
