@@ -23,12 +23,12 @@ public class MainActivityFragment extends Fragment {
                              Bundle savedInstanceState) {
 
 
-        if (BuildConfig.PAID_VERSION) {// this is the flag configured in build.gradle
+    /*    if (BuildConfig.PAID_VERSION) {// this is the flag configured in build.gradle
             System.out.println("insiiiiiiide if statement");
             View root = inflater.inflate(R.layout.fragment_main, container, false);
             return root;
         } else {
-            System.out.println("insiiiiiiide ELLLLLLSEEEE statement");
+            System.out.println("insiiiiiiide ELLLLLLSEEEE statement");*/
             View root = inflater.inflate(R.layout.fragment_main, container, false);
             AdView mAdView = (AdView) root.findViewById(R.id.adView);
             // Create an ad request. Check logcat output for the hashed device ID to
@@ -39,7 +39,7 @@ public class MainActivityFragment extends Fragment {
                     .build();
             mAdView.loadAd(adRequest);
             return root;
-        }
+        //}
 
 
     }
