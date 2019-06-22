@@ -1,36 +1,39 @@
 package com.udacity.gradle.builditbigger;
 
+import android.app.Application;
+import android.test.ApplicationTestCase;
+import java.util.concurrent.CountDownLatch;
+import java.util.concurrent.ExecutionException;
+import java.util.concurrent.TimeUnit;
+import java.util.concurrent.TimeoutException;
 
-import android.os.Bundle;
+public class EndpointsAsyncTaskTest extends ApplicationTestCase<Application> {
 
-//import android.support.test.rule.ActivityTestRule;
-//import android.support.test.runner.AndroidJUnit4;
-import android.test.AndroidTestCase;
+    CountDownLatch signal = null;
+    public EndpointsAsyncTaskTest(){
+        super(Application.class);
+    }
 
-import org.junit.Before;
-import org.junit.Rule;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+    @Override
+    protected void setUp() throws Exception {
+        signal = new CountDownLatch(1);
+    }
 
-//@RunWith(AndroidJUnit4.class)
+    @Override
+    protected void tearDown() throws Exception {
+        signal.countDown();
+    }
 
-//@RunWith(AndroidJUnit4.class)
+ /*   public EndpointsAsyncTaskTest(Class<Application> applicationClass) {
+        super(applicationClass);
+    }*/
 
-public class EndpointsAsyncTaskTest extends AndroidTestCase {
-
-    public class MyTest {
-        String test = EndpointsAsyncTask.class.getName();
-        @Rule
-  //      public ActivityTestRule<MainActivity> activityTestRule = new ActivityTestRule<>(MainActivity.class);
-
-        @Test
-        public void myTest(){
-            EndpointsAsyncTask endpointsAsyncTask = new EndpointsAsyncTask();
-    //        endpointsAsyncTask.execute(MainActivity.class);
-        }
-
-
-        }
-
+    public void myTest() throws InterruptedException, TimeoutException, ExecutionException {
+        System.out.println("here ya test");
+        EndpointsAsyncTask endpointsAsyncTask = new EndpointsAsyncTask();
+        endpointsAsyncTask.execute();
+        String testingJoke = endpointsAsyncTask.get(25, TimeUnit.SECONDS);
+        assertTrue(testingJoke.length() > 0);
+    }
 }
 
